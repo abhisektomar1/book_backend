@@ -8,7 +8,7 @@ export interface IUser extends Document {
 }
 
 interface IUserModel extends Model<IUser> {
-    signup(fullname:string,username:string, email: string, password: string): Promise<IUser>;
+    signup(fullname:string, email: string, password: string): Promise<IUser>;
     login(email: string, password: string): Promise<IUser>;
 }
 
@@ -17,7 +17,7 @@ const UserSchema = new Schema<IUser>({
     password: {type: String, required: true},
 });
 
-UserSchema.statics.signup = async function (fullname:string, username:string, email: string, password: string) {
+UserSchema.statics.signup = async function (fullname:string,email: string, password: string) {
     if (!email || !password) {
         throw Error('All field must be filled')
     }
@@ -35,7 +35,6 @@ UserSchema.statics.signup = async function (fullname:string, username:string, em
     const hash = await bcrypt.hash(password, salt);
     return await this.create({
         fullname,
-        username,
         email,
         password: hash,
     });

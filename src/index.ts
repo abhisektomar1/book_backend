@@ -3,6 +3,7 @@ import  { Express} from "express";
 import dotenv from "dotenv";
 import userRoute from "./routes/user";
 import noteRoute from "./routes/notes";
+import booksRoute from "./routes/books";
 import mongoose from "mongoose";
 import cors from 'cors'
 dotenv.config();
@@ -16,6 +17,8 @@ app.use(cors())
 // middleware
 app.use('/api/notes', noteRoute)
 app.use('/api/user', userRoute)
+app.use('/api/books', booksRoute)
+
 
 mongoose.connect(process.env.MONGO_URI as string)
     .then(() => {
